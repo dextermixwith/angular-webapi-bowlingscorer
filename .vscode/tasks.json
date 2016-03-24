@@ -4,13 +4,17 @@
     "isShellCommand": true,
     "tasks": [
         {
-            "taskName": "server",
+            "taskName": "default",
             "isBuildCommand": true,
             "showOutput": "always"
         },
         {
-            "taskName": "karma",
+            "taskName": "runTests",
             "isTestCommand": true,
+            "showOutput": "always"
+        },
+        {
+            "taskName": "watchTests",
             "showOutput": "always"
         }
     ]

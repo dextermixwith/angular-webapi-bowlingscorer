@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('karma', []);
 
 angular.module('karma')
@@ -7,6 +9,6 @@ angular.module('karma')
           $scope.sum = 0;
           
           $scope.AddNumbers = function() {
-              $scope.sum = $scope.num1*1 + $scope.num2;
+              $scope.sum = $scope.num1*2 + $scope.num2;
           };
        });

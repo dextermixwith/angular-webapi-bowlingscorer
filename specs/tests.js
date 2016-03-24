@@ -14,7 +14,7 @@ describe("KarmaController", function() {
 			var controller = $controller('karmaController', { $scope: $scope });
 			
 			$scope.num1 = 5;
-			$scope.num2 = 11;
+			$scope.num2 = 10;
 			$scope.AddNumbers();
 			
 			expect($scope.sum).toEqual(15);

@@ -6,9 +6,12 @@ var gulp = require("gulp"),
   concat = require("gulp-concat"),
   cssmin = require("gulp-cssmin"),
   uglify = require("gulp-uglify"),
-  exec = require("gulp-exec");
+  ignore = require('gulp-ignore'),
+  jshint = require('gulp-jshint');
 
 var plugins = require('gulp-load-plugins')();
+
+var Server = require('karma').Server;
 
 var webroot = "./wwwroot/";
 
@@ -21,6 +24,11 @@ var paths = {
   concatCssDest: webroot + "css/site.min.css"
 };
 
+gulp.task("default", ["clean", "lint", "runTests", "min"])
+
+gulp.task("clean", ["clean:js", "clean:css"]);
+
+
 gulp.task("clean:js", function (cb) {
   rimraf(paths.concatJsDest, cb);
 });
@@ -28,10 +36,6 @@ gulp.task("clean:js", function (cb) {
 gulp.task("clean:css", function (cb) {
   rimraf(paths.concatCssDest, cb);
 });
-
-gulp.task("default", ["clean", "watch-lint", "server"])
-
-gulp.task("clean", ["clean:js", "clean:css"]);
 
 gulp.task("min:js", function () {
   return gulp.src([paths.js, "!" + paths.minJs], {
@@ -51,34 +55,7 @@ gulp.task("min:css", function () {
 
 gulp.task("min", ["min:js", "min:css"]);
 
-gulp.task('server', ['node', 'karma']);
-
-var options = {
-    continueOnError: false, // default = false, true means don't emit error event 
-    pipeStdout: false, // default = false, true means stdout is written to file.contents 
-    customTemplatingThing: "test" // content passed to gutil.template() 
-};
-
-var reportOptions = {
-    err: true, // default = true, false means don't write err 
-    stderr: true, // default = true, false means don't write stderr 
-    stdout: true // default = true, false means don't write stdout 
-};
-
-gulp.task('node', function() {
-  gulp.src('./**/**')
-    .pipe(exec('node app.js', options))
-    .pipe(exec.reporter(reportOptions));
-});
-
-gulp.task('karma', function() {
-  gulp.src('./**/**')
-    .pipe(exec('karma start karma.conf.js', options))
-    .pipe(exec('open -a Google\ Chrome ".\_reports\html-results.html"', options))
-    .pipe(exec.reporter(reportOptions));
-});
-
-var sources = ['./Scripts/*.js', '!./Scripts/libs/*.js'];
+var sources = ['wwwroot/lib/angular/angular.js', './js/*.js'];
 
 gulp.task('watch-lint', function () {
     gulp.watch(sources, ['lint']);
@@ -86,14 +63,24 @@ gulp.task('watch-lint', function () {
  
 gulp.task('lint', function () {
     return gulp.src(sources)
-        .pipe(plugins.jshint({
-            strict: true,
-            predef: [""]
-        }))
-        .pipe(plugins.jshint.reporter('default'))
-        .pipe(plugins.jshint.reporter('fail'))
-    ;
+     .pipe(ignore.exclude(/angular\.js/))
+     .pipe(jshint({"predef": ["angular"]}))
+     .pipe(jshint.reporter('default'))
+     .pipe(jshint.reporter('fail'));;
 });
 
+gulp.task('watchTests', ["clean"], function () {
+    new Server({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: false
+    }).start();
+});
+
+gulp.task('runTests', function () {
+    new Server({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }).start();
+});
 
 
