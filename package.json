@@ -1,0 +1,36 @@
+{
+  "name": "bowlingscorer",
+  "version": "0.0.0",
+  "devDependencies": {
+    "bower": "^1.7.7",
+    "express": "^4.13.4",
+    "git": "^0.1.5",
+    "gulp": "^3.9.1",
+    "gulp-concat": "2.5.2",
+    "gulp-cssmin": "0.1.7",
+    "gulp-exec": "^2.1.2",
+    "gulp-jshint": "^2.0.0",
+    "gulp-load-plugins": "^1.2.0",
+    "gulp-shell": "^0.5.2",
+    "gulp-uglify": "1.2.0",
+    "jasmine-core": "^2.4.1",
+    "jshint": "^2.9.1",
+    "karma": "^0.13.22",
+    "karma-html-detailed-reporter": "^1.1.8",
+    "karma-jasmine": "^0.3.8",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "phantomjs-prebuilt": "^2.1.6",
+    "rimraf": "^2.2.8"
+  },
+  "description": "We've made some big updates in this release, so it’s **important** that you spend a few minutes to learn what’s new.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "bowlingscorer"
+  },
+  "author": "",
+  "license": "ISC"
+}
