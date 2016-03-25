@@ -9,12 +9,8 @@
             "showOutput": "always"
         },
         {
-            "taskName": "runTests",
+            "taskName": "test",
             "isTestCommand": true,
-            "showOutput": "always"
-        },
-        {
-            "taskName": "watchTests",
             "showOutput": "always"
         }
     ]

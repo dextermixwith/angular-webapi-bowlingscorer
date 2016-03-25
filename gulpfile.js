@@ -7,9 +7,8 @@ var gulp = require("gulp"),
   cssmin = require("gulp-cssmin"),
   uglify = require("gulp-uglify"),
   ignore = require('gulp-ignore'),
-  jshint = require('gulp-jshint');
-
-var plugins = require('gulp-load-plugins')();
+  jshint = require('gulp-jshint'),
+  dnx = require("gulp-dnx");
 
 var Server = require('karma').Server;
 
@@ -24,7 +23,9 @@ var paths = {
   concatCssDest: webroot + "css/site.min.css"
 };
 
-gulp.task("default", ["clean", "lint", "runTests", "min"])
+gulp.task("default", ["clean", "lint", "runTests", "min", "dnx-run"])
+
+gulp.task("test", ["clean", "lint", "watchTests"])
 
 gulp.task("clean", ["clean:js", "clean:css"]);
 
@@ -76,11 +77,21 @@ gulp.task('watchTests', ["clean"], function () {
     }).start();
 });
 
-gulp.task('runTests', function () {
-    new Server({
-        configFile: __dirname + '/karma.conf.js',
-        singleRun: true
-    }).start();
+gulp.task('runTests', function (done) {
+  new Server({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done).start();
 });
 
+var dnxOptions = {
+    restore: true,
+    build: false,
+    run: true,
+    cwd: './'
+};
+
+var dnxCommand = 'web';
+
+gulp.task('dnx-run', dnx(dnxCommand, dnxOptions));
 

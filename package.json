@@ -8,6 +8,7 @@
     "gulp": "^3.9.1",
     "gulp-concat": "2.5.2",
     "gulp-cssmin": "0.1.7",
+    "gulp-dnx": "^0.3.0",
     "gulp-exec": "^2.1.2",
     "gulp-ignore": "^2.0.1",
     "gulp-jshint": "^2.0.0",
