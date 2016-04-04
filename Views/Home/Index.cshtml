@@ -1,4 +1,13 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
+<h2>Score Card</h2>
+<div ng-controller="ScoreCardController">
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="playerName">Name</label>
+            <input type="text" class="form-control" id="playerName" placeholder="Player Name Here" ng-model="playerName">
+        </div>
+        <button type="input" class="btn btn-default">Start Game</button>
+    </form>
+</div>

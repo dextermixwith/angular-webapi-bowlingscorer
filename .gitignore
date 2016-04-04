@@ -186,6 +186,7 @@ orleans.codegen.cs
 wwwroot/lib/
 _reports/
 wwwroot/js/*.min.js
+wwwroot/js/*.js
 wwwroot/css/*.min.css
 
 # RIA/Silverlight projects

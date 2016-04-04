@@ -15,7 +15,7 @@ var Server = require('karma').Server;
 var webroot = "./wwwroot/";
 
 var paths = {
-  js: webroot + "js/**/*.js",
+  js:  "js/**/*.js",
   minJs: webroot + "js/**/*.min.js",
   css: webroot + "css/**/*.css",
   minCss: webroot + "css/**/*.min.css",
@@ -23,7 +23,7 @@ var paths = {
   concatCssDest: webroot + "css/site.min.css"
 };
 
-gulp.task("default", ["clean", "lint", "runTests", "min", "dnx-run"])
+gulp.task("default", ["clean", "lint", "runTests", "min", "copy-dev-js", "dnx-run"])
 
 gulp.task("test", ["clean", "lint", "watchTests"])
 
@@ -56,6 +56,11 @@ gulp.task("min:css", function () {
 
 gulp.task("min", ["min:js", "min:css"]);
 
+gulp.task("copy-dev-js", function() {
+   gulp.src('./js/*.js')
+    .pipe(gulp.dest('./wwwroot/js')) 
+});
+
 var sources = ['wwwroot/lib/angular/angular.js', './js/*.js'];
 
 gulp.task('watch-lint', function () {
@@ -86,7 +91,7 @@ gulp.task('runTests', function (done) {
 
 var dnxOptions = {
     restore: true,
-    build: false,
+    build: true,
     run: true,
     cwd: './'
 };

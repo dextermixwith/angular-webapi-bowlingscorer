@@ -1,65 +1,24 @@
-describe("KarmaController", function() {
+describe("ScoreCardController", function() {
 	
-	beforeEach(module('karma'));
+	beforeEach(module('bowlingScoreCard'));
 	
 	var $controller;
+    var $scope;
 	
 	beforeEach(inject(function(_$controller_) {
 		$controller = _$controller_;
+        $scope = {};
 	}));
-	
-	describe("$scope.sum", function() {
-		it("should add two numbers", function() {
-			var $scope = {};
-			var controller = $controller('karmaController', { $scope: $scope });
-			
-			$scope.num1 = 5;
-			$scope.num2 = 10;
-			$scope.AddNumbers();
-			
-			expect($scope.sum).toEqual(15);
+    
+	describe("New ScoreCard", function() {
+        it("should have a total score of 0", function() {
+            $controller('ScoreCardController', { $scope: $scope });
+			expect($scope.totalScore).toEqual(0);
 		});
-        it("should failed", function() {
-			var $scope = {};
-			var controller = $controller('karmaController', { $scope: $scope });
-			
-			$scope.num1 = 5;
-			$scope.num2 = 10;
-			$scope.AddNumbers();
-			
-			expect($scope.sum).toEqual(15);
+        
+        it("should have a empty player name", function() {
+			$controller('ScoreCardController', { $scope: $scope });
+			expect($scope.playerName).toEqual('');
 		});
-        it("should pass", function() {
-			var $scope = {};
-			var controller = $controller('karmaController', { $scope: $scope });
-			
-			$scope.num1 = 5;
-			$scope.num2 = 10;
-			$scope.AddNumbers();
-			
-			expect($scope.sum).toEqual(15);
-		});
-        it("should pass again", function() {
-			var $scope = {};
-			var controller = $controller('karmaController', { $scope: $scope });
-			
-			$scope.num1 = 5;
-			$scope.num2 = 10;
-			$scope.AddNumbers();
-			
-			expect($scope.sum).toEqual(15);
-		});
-        describe("nested $scope.sum", function() {
-            it("should add two numbers", function() {
-                var $scope = {};
-                var controller = $controller('karmaController', { $scope: $scope });
-                
-                $scope.num1 = 5;
-                $scope.num2 = 10;
-                $scope.AddNumbers();
-                
-                expect($scope.sum).toEqual(15);
-            });
-        });
 	});
 });
