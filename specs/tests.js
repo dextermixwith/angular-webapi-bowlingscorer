@@ -22,7 +22,7 @@ describe("ScoreCardController", function() {
 		});
 	});
     
-    describe("First turn score entered", function() {
+    describe("First roll score entered", function() {
        
         it("should show total score as 5 when 5 entered", function() {
             $controller('ScoreCardController', { $scope: $scope });
@@ -37,7 +37,7 @@ describe("ScoreCardController", function() {
         });
     });
     
-    describe("Second turn score entered", function() {
+    describe("Second roll score entered", function() {
        
         it("should show total score as 7 when 5 then 2 entered", function() {
             $controller('ScoreCardController', { $scope: $scope });
