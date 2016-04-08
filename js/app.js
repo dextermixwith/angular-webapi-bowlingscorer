@@ -4,27 +4,42 @@
     var app = angular.module('bowlingScoreCard', []);
 
     var Turn = function() {
-        this.rollScores = [];
+        this.rollScores = ['-', '-', '-'];
         this.score = '0';  
     };
 
     app.controller('ScoreCardController', ['$scope', function($scope) {
         $scope.totalScore = 0;
         $scope.playerName = '';
-        $scope.rollScores = [];
-        $scope.turns = [ ];
+        //$scope.turns = [ new Turn(), new Turn(), new Turn(), new Turn(), new Turn(), new Turn(), new Turn(), new Turn(), new Turn(), new Turn()];
 
-        function recalculateTotalScore () {
+        $scope.turns = [];
+        
+        function recalculatelScores () {
             $scope.totalScore = 0;
-            
+            var spareScore = false;
             for(var turnIndex = 0; turnIndex < $scope.turns.length; turnIndex++){
                 var turnScoreValue = 0;
                 for(var rollIndex = 0; rollIndex < $scope.turns[turnIndex].rollScores.length; rollIndex++) {
-                    var rollScoreValue = new Number($scope.turns[turnIndex].rollScores[rollIndex]);
-                    $scope.totalScore += rollScoreValue;
-                    turnScoreValue += rollScoreValue;
+                    var rollScore = $scope.turns[turnIndex].rollScores[rollIndex];
+                    if(rollScore != '-') {
+                        turnScoreValue += new Number(rollScore);
+                    }
+                    //console.log('turnIndex = ' + turnIndex + ' rollIndex = ' + rollIndex + ' rollScore = ' + rollScore + ' turnScoreValue = ' + turnScoreValue);
                 }
-                $scope.turns[turnIndex].score = new String(turnScoreValue);    
+    
+                if (turnScoreValue == 10){
+                    spareScore = true;
+                    $scope.turns[turnIndex].score = '/';
+                    $scope.totalScore += 10;
+                } else {
+                    $scope.turns[turnIndex].score = new String(turnScoreValue);   
+                    $scope.totalScore += turnScoreValue; 
+                    if(spareScore) {
+                        $scope.totalScore += new Number($scope.turns[turnIndex].rollScores[0]);
+                    }
+                    spareScore = false;
+                }
             }
         };
         
@@ -40,7 +55,7 @@
         
         $scope.enterPlayerScore = function(turn, roll, score) {
             addScoreToTurnRoll(turn, roll, score);
-            recalculateTotalScore();
+            recalculatelScores();
         };
     
     }]);

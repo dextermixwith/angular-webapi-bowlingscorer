@@ -71,15 +71,61 @@ describe("ScoreCardController", function() {
             expect($scope.turns[1].score).toEqual('5');
         });
        
-        it("should show total score as 17 when 5, 2, 5 then 5 entered", function() {
+        it("should show total score as 17 when 5, 2, 5 then 3 entered", function() {
             $controller('ScoreCardController', { $scope: $scope });
             $scope.enterPlayerScore(0, 0, '5');
             $scope.enterPlayerScore(0, 1, '2');
             $scope.enterPlayerScore(1, 0, '5');
-            $scope.enterPlayerScore(1, 1, '5');
-            expect($scope.totalScore).toEqual(17);  
+            $scope.enterPlayerScore(1, 1, '3');
+            expect($scope.totalScore).toEqual(15);  
             expect($scope.turns[0].score).toEqual('7');
-            expect($scope.turns[1].score).toEqual('10');
+            expect($scope.turns[1].score).toEqual('8');
+        });
+        
+    });
+    
+    describe("Total for turn is 10 (spare) - ", function() {
+       
+        it("should show total score as 10 and turn score as '/' when 5 then 5 entered", function() {
+            $controller('ScoreCardController', { $scope: $scope });
+            $scope.enterPlayerScore(0, 0, '5');
+            $scope.enterPlayerScore(0, 1, '5');
+            expect($scope.totalScore).toEqual(10);  
+            expect($scope.turns[0].score).toEqual('/');
+        });
+       
+        it("should show total score as 21 and turn scores as '/' and 6, when 5, 5, 5 then 1 entered", function() {
+            $controller('ScoreCardController', { $scope: $scope });
+            $scope.enterPlayerScore(0, 0, '5');
+            $scope.enterPlayerScore(0, 1, '5');
+            $scope.enterPlayerScore(1, 0, '5');
+            $scope.enterPlayerScore(1, 1, '1');
+            expect($scope.totalScore).toEqual(21);  
+            expect($scope.turns[0].score).toEqual('/');
+            expect($scope.turns[1].score).toEqual('6');
+        });
+        
+        it("should show total score as 20 and turn scores as '/' and '/', when 5, 5, 5 then 5 entered", function() {
+            $controller('ScoreCardController', { $scope: $scope });
+            $scope.enterPlayerScore(0, 0, '5');
+            $scope.enterPlayerScore(0, 1, '5');
+            $scope.enterPlayerScore(1, 0, '5');
+            $scope.enterPlayerScore(1, 1, '5');
+            expect($scope.turns[0].score).toEqual('/');
+            expect($scope.turns[1].score).toEqual('/');
+            expect($scope.totalScore).toEqual(20);  
+        });
+        
+        it("should show total score as 22 and turn scores as '/', '/' and '1', when 5, 5, 5, 5 then 1 entered", function() {
+            $controller('ScoreCardController', { $scope: $scope });
+            $scope.enterPlayerScore(0, 0, '5');
+            $scope.enterPlayerScore(0, 1, '5');
+            $scope.enterPlayerScore(1, 0, '5');
+            $scope.enterPlayerScore(1, 1, '5');
+            $scope.enterPlayerScore(2, 0, '1');
+            expect($scope.turns[0].score).toEqual('/');
+            expect($scope.turns[1].score).toEqual('/');
+            expect($scope.totalScore).toEqual(22);  
         });
     });
 });
