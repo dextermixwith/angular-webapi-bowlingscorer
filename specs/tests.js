@@ -121,5 +121,51 @@ describe("ScoreCardController", function() {
             expect($scope.turns[1].score).toEqual('/');
             expect($scope.totalScore).toEqual(30);  
         });
+                 
+        it("should show total score as 37 and turn scores as '/', '/' and '1', when 5, 5, 5, 5, 5 then 2 entered", function() {
+            $controller('ScoreCardController', { $scope: $scope });
+            $scope.enterPlayerScore(0, 0, '5');
+            $scope.enterPlayerScore(0, 1, '5');
+            $scope.enterPlayerScore(1, 0, '5');
+            $scope.enterPlayerScore(1, 1, '5');
+            $scope.enterPlayerScore(2, 0, '5');
+            $scope.enterPlayerScore(2, 1, '2');
+            expect($scope.turns[0].score).toEqual('/');
+            expect($scope.turns[1].score).toEqual('/');
+            expect($scope.turns[2].score).toEqual('7');
+            expect($scope.totalScore).toEqual(37);  
+        });
+        
+        it("should show total score as 150 and turn scores all as '/' when 5 entered for all rolls plus an extra roll of 5 in turn 10", function() {
+            $controller('ScoreCardController', { $scope: $scope });
+            for(var turnIndex = 0; turnIndex < 10; turnIndex++){
+                $scope.enterPlayerScore(turnIndex, 0, '5');
+                $scope.enterPlayerScore(turnIndex, 1, '5');                
+            }
+
+            $scope.enterPlayerScore(9, 2, '5');
+  
+            for(var turnIndex = 0; turnIndex < 10; turnIndex++){
+                expect($scope.turns[turnIndex].score).toEqual('/');
+            }
+            
+            expect($scope.totalScore).toEqual(150);  
+        });
+        
+        it("should show total score as 166 and turn scores all as '/' when spares (7 and 3) for all turns plus an extra roll of 3 in turn 10", function() {
+            $controller('ScoreCardController', { $scope: $scope });
+            for(var turnIndex = 0; turnIndex < 10; turnIndex++){
+                $scope.enterPlayerScore(turnIndex, 0, '7');
+                $scope.enterPlayerScore(turnIndex, 1, '3');                
+            }
+
+            $scope.enterPlayerScore(9, 2, '3');
+  
+            for(var turnIndex = 0; turnIndex < 10; turnIndex++){
+                expect($scope.turns[turnIndex].score).toEqual('/');
+            }
+            
+            expect($scope.totalScore).toEqual(166);  
+        });
     });
 });
