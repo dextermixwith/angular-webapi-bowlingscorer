@@ -27,26 +27,33 @@
                 for(var rollIndex = 0; rollIndex < $scope.turns[turnIndex].rollScores.length && !turnComplete; rollIndex++) {
                     var rollScore = $scope.turns[turnIndex].rollScores[rollIndex];
                     
-                    if(rollScore != '-') {                        
-                        turnScoreValue += new Number(rollScore);
-                        turnComplete = turnIndex == 9 ? rollIndex == ($scope.turns[turnIndex].rollScores.length - 1) : (rollIndex > 0);
+                    if(rollScore !== '-') {                        
+                        turnScoreValue += rollScore === 'X' ? 10 : parseInt(rollScore);
+                        turnComplete = turnIndex === 9 ? rollIndex === ($scope.turns[turnIndex].rollScores.length - 1) : (rollIndex > 0);
                     }
                 }
                 
-                if (turnComplete && turnScoreValue == 10){
+                if (turnComplete && turnScoreValue === 10){
                     $scope.turns[turnIndex].score = '/';
+                } else if (!turnComplete && turnScoreValue === 10){
+                    $scope.turns[turnIndex].score = 'X';
                 } else if (turnComplete){
                     $scope.totalScore += turnScoreValue; 
-                    $scope.turns[turnIndex].score = turnScoreValue >= 10 && turnIndex == 9 ? '/' : new String(turnScoreValue);
+                    $scope.turns[turnIndex].score = turnScoreValue >= 10 && turnIndex === 9 ? '/' : turnScoreValue.toString();
                 }
                 
-                var previousSpare = (turnIndex > 0) && ($scope.turns[turnIndex - 1].score == '/');
+                var previousSpare = (turnIndex > 0) && ($scope.turns[turnIndex - 1].score === '/');
+                var previousStrike = (turnIndex > 0) && $scope.turns[turnIndex - 1].score === 'X' && ($scope.turns[turnIndex].rollScores[1] !== '-' || $scope.turns[turnIndex].rollScores[0] === 'X');
                 
                 if(previousSpare) {
-                    $scope.totalScore += 10 + new Number($scope.turns[turnIndex - 1].rollScores[0]);
+                    $scope.totalScore += 10 + parseInt($scope.turns[turnIndex].rollScores[0]);
+                }  
+                
+                if(previousStrike) {
+                    $scope.totalScore += 10 + parseInt($scope.turns[turnIndex].rollScores[0] === 'X' ? '10' : $scope.turns[turnIndex].rollScores[0]) + (parseInt($scope.turns[turnIndex].rollScores[1] === '-' ? '0' : $scope.turns[turnIndex].rollScores[1]));
                 }                
             }
-        };
+        }
         
         function addScoreToTurnRoll(turn, roll, score) {
            while($scope.turns.length < turn + 1){

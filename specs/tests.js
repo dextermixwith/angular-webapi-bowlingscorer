@@ -168,4 +168,72 @@ describe("ScoreCardController", function() {
             expect($scope.totalScore).toEqual(166);  
         });
     });
+    
+    describe("Strike is scored (10 in one roll) - ", function() {
+       it("should show a total score as 0 and turn score of 'X' when X scored on first roll", function() {
+            $controller('ScoreCardController', { $scope: $scope });
+            $scope.enterPlayerScore(0, 0, 'X');
+            expect($scope.totalScore).toEqual(0);  
+            expect($scope.turns[0].score).toEqual('X');
+       });
+
+       it("should show a total score as 0 and turn scores of 'X' and '0' when X scored on first roll, then 3", function() {
+            $controller('ScoreCardController', { $scope: $scope });
+            $scope.enterPlayerScore(0, 0, 'X');
+            $scope.enterPlayerScore(1, 0, '3');
+            
+            expect($scope.totalScore).toEqual(0);  
+            expect($scope.turns[0].score).toEqual('X');
+            expect($scope.turns[1].score).toEqual('0');
+       });
+
+       it("should show a total score as 26 and turn scores of 'X' and '8' when X scored on first roll, then 3 and 5", function() {
+            $controller('ScoreCardController', { $scope: $scope });
+            $scope.enterPlayerScore(0, 0, 'X');
+            $scope.enterPlayerScore(1, 0, '3');
+            $scope.enterPlayerScore(1, 1, '5');
+            
+            expect($scope.totalScore).toEqual(26);  
+            expect($scope.turns[0].score).toEqual('X');
+            expect($scope.turns[1].score).toEqual('8');
+       });
+       
+       
+       it("should show a total score as 20 and turn scores of 'X' and '/' when X scored on first roll, then 5 and 5", function() {
+            $controller('ScoreCardController', { $scope: $scope });
+            $scope.enterPlayerScore(0, 0, 'X');
+            $scope.enterPlayerScore(1, 0, '5');
+            $scope.enterPlayerScore(1, 1, '5');
+            
+            expect($scope.totalScore).toEqual(20);  
+            expect($scope.turns[0].score).toEqual('X');
+            expect($scope.turns[1].score).toEqual('/');
+       });
+       
+       
+       it("should show a total score as 34 and turn scores of 'X' and '/' when X scored on first roll, then 5, 5 and 4", function() {
+            $controller('ScoreCardController', { $scope: $scope });
+            $scope.enterPlayerScore(0, 0, 'X');
+            $scope.enterPlayerScore(1, 0, '5');
+            $scope.enterPlayerScore(1, 1, '5');
+            $scope.enterPlayerScore(2, 0, '4');
+            
+            expect($scope.totalScore).toEqual(34);  
+            expect($scope.turns[0].score).toEqual('X');
+            expect($scope.turns[1].score).toEqual('/');
+       });       
+        
+       it("should show a total score as 46 and turn scores of 'X', 'X' and '8' when X scored on first roll, then X, 4 and 4", function() {
+            $controller('ScoreCardController', { $scope: $scope });
+            $scope.enterPlayerScore(0, 0, 'X');
+            $scope.enterPlayerScore(1, 0, 'X');
+            $scope.enterPlayerScore(2, 0, '4');
+            $scope.enterPlayerScore(2, 1, '4');
+            
+            expect($scope.totalScore).toEqual(46);  
+            expect($scope.turns[0].score).toEqual('X');
+            expect($scope.turns[1].score).toEqual('X');
+            expect($scope.turns[2].score).toEqual('8');
+       });         
+    });
 });
