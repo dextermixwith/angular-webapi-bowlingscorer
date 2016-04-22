@@ -43,14 +43,22 @@
                 }
                 
                 var previousSpare = (turnIndex > 0) && ($scope.turns[turnIndex - 1].score === '/');
-                var previousStrike = (turnIndex > 0) && $scope.turns[turnIndex - 1].score === 'X' && ($scope.turns[turnIndex].rollScores[1] !== '-' || $scope.turns[turnIndex].rollScores[0] === 'X');
+                var previousStrike = (turnIndex > 1) && $scope.turns[turnIndex - 2].score === 'X' && ($scope.turns[turnIndex].rollScores[1] !== '-' || $scope.turns[turnIndex].rollScores[0] === 'X');
                 
                 if(previousSpare) {
                     $scope.totalScore += 10 + parseRollScoreToInt($scope.turns[turnIndex].rollScores[0]);
                 }  
                 
                 if(previousStrike) {
-                    $scope.totalScore += 10 + parseRollScoreToInt($scope.turns[turnIndex].rollScores[0]) + parseRollScoreToInt($scope.turns[turnIndex].rollScores[1]);
+                    $scope.totalScore += 10 
+                                        + parseRollScoreToInt($scope.turns[turnIndex].rollScores[0]) 
+                                        + parseRollScoreToInt($scope.turns[turnIndex].rollScores[1]) 
+                                        + parseRollScoreToInt($scope.turns[turnIndex - 1].rollScores[0]) 
+                                        + parseRollScoreToInt($scope.turns[turnIndex - 1].rollScores[1]);                    
+                }
+                
+                if (turnIndex === 9 && $scope.turns[turnIndex].rollScores[0] === 'X') {
+                    $scope.totalScore += parseRollScoreToInt($scope.turns[turnIndex].rollScores[1]) + parseRollScoreToInt($scope.turns[turnIndex].rollScores[2]) ;
                 }                
             }
         }
