@@ -28,7 +28,7 @@
                     var rollScore = $scope.turns[turnIndex].rollScores[rollIndex];
                     
                     if(rollScore !== '-') {                        
-                        turnScoreValue += rollScore === 'X' ? 10 : parseInt(rollScore);
+                        turnScoreValue += parseRollScoreToInt(rollScore);
                         turnComplete = turnIndex === 9 ? rollIndex === ($scope.turns[turnIndex].rollScores.length - 1) : (rollIndex > 0);
                     }
                 }
@@ -46,13 +46,19 @@
                 var previousStrike = (turnIndex > 0) && $scope.turns[turnIndex - 1].score === 'X' && ($scope.turns[turnIndex].rollScores[1] !== '-' || $scope.turns[turnIndex].rollScores[0] === 'X');
                 
                 if(previousSpare) {
-                    $scope.totalScore += 10 + parseInt($scope.turns[turnIndex].rollScores[0]);
+                    $scope.totalScore += 10 + parseRollScoreToInt($scope.turns[turnIndex].rollScores[0]);
                 }  
                 
                 if(previousStrike) {
-                    $scope.totalScore += 10 + parseInt($scope.turns[turnIndex].rollScores[0] === 'X' ? '10' : $scope.turns[turnIndex].rollScores[0]) + (parseInt($scope.turns[turnIndex].rollScores[1] === '-' ? '0' : $scope.turns[turnIndex].rollScores[1]));
+                    $scope.totalScore += 10 + parseRollScoreToInt($scope.turns[turnIndex].rollScores[0]) + parseRollScoreToInt($scope.turns[turnIndex].rollScores[1]);
                 }                
             }
+        }
+        
+        function parseRollScoreToInt(rollScore) {
+            if (rollScore === '-') return 0;
+            
+            return rollScore === 'X' ? 10 : parseInt(rollScore);
         }
         
         function addScoreToTurnRoll(turn, roll, score) {

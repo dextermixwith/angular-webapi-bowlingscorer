@@ -234,6 +234,20 @@ describe("ScoreCardController", function() {
             expect($scope.turns[0].score).toEqual('X');
             expect($scope.turns[1].score).toEqual('X');
             expect($scope.turns[2].score).toEqual('8');
-       });         
+       });   
+       
+               
+       it("should show a total score as 40 and turn scores of 'X', '/' and 'X' when X scored on first roll, then 6, 4 and X", function() {
+            $controller('ScoreCardController', { $scope: $scope });
+            $scope.enterPlayerScore(0, 0, 'X');
+            $scope.enterPlayerScore(1, 0, '6');
+            $scope.enterPlayerScore(1, 1, '4');
+            $scope.enterPlayerScore(2, 0, 'X');
+            
+            expect($scope.totalScore).toEqual(40);  
+            expect($scope.turns[0].score).toEqual('X');
+            expect($scope.turns[1].score).toEqual('/');
+            expect($scope.turns[2].score).toEqual('X');
+       });        
     });
 });
