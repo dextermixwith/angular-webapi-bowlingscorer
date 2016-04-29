@@ -270,7 +270,7 @@ describe("ScoreCardController", function() {
        });   
        
                
-       it("should show a total score as 50 when X scored on first try, then 6, 4 and X", function() {
+       it("when X scored on first try and then 6, 4 and X, then total score is 50, and frame score for frame 1 is 30 and score for frame 2 is 50 and score for frame 3 is 50", function() {
             $controller('ScoreCardController', { $scope: $scope });
             $scope.enterPlayerScore(0, 0, 'X');
             $scope.enterPlayerScore(1, 0, '6');
@@ -278,9 +278,12 @@ describe("ScoreCardController", function() {
             $scope.enterPlayerScore(2, 0, 'X');
             
             expect($scope.totalScore).toEqual(50);  
+            expect($scope.frames[0].scoreValue).toEqual(30);            
+            expect($scope.frames[1].scoreValue).toEqual(50); 
+            expect($scope.frames[2].scoreValue).toEqual(50); 
        });  
        
-       xit("should show total score as 300 when 'X' entered for all tries plus an extra try of 'X' in frame 10", function() {
+       it("when 'X' entered for all tries plus an extra try of 'X' in frame 10, then total score is 300 ", function() {
             $controller('ScoreCardController', { $scope: $scope });
             for(var frameIndex = 0; frameIndex < 10; frameIndex++){
                 $scope.enterPlayerScore(frameIndex, 0, 'X');
@@ -289,7 +292,7 @@ describe("ScoreCardController", function() {
             $scope.enterPlayerScore(9, 1, 'X');
             $scope.enterPlayerScore(9, 2, 'X');
             
-            expect($scope.totalScore).toEqual(300);  
+            expect($scope.totalScore).toEqual(300);   
         });
     });
 });
