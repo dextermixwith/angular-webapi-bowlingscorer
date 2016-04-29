@@ -1,14 +1,15 @@
-describe("ScoreCardController", function() {
-	
-	beforeEach(module('bowlingScoreCard'));
-	
+describe("Scorecard Controller", function() {
 	var $controller;
     var $scope;
 	
-	beforeEach(inject(function(_$controller_) {
-		$controller = _$controller_;
-        $scope = {};
-	}));
+	beforeEach(function() {
+        module('bowlingScoreCard');
+        
+        inject(function(_$controller_) {
+		    $controller = _$controller_;
+            $scope = {};
+	    })
+    });
     
 	describe("New ScoreCard", function() {
         it("should have a total score of 0", function() {
