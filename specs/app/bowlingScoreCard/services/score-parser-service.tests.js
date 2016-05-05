@@ -1,6 +1,6 @@
 describe("scoreParser", function(){
     beforeEach(function(){
-        module('bowlingScoreCard');
+        module('bowlingScorer');
         inject(function(_scoreParser_){
            scoreParser = _scoreParser_; 
         });

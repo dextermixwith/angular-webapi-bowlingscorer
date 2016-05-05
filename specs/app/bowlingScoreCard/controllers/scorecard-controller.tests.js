@@ -3,7 +3,7 @@ describe("Scorecard Controller", function() {
     var $scope;
 	
 	beforeEach(function() {
-        module('bowlingScoreCard');
+        module('bowlingScorer');
         
         inject(function(_$controller_) {
 		    $controller = _$controller_;

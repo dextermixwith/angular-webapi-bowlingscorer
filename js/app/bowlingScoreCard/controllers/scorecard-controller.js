@@ -6,7 +6,7 @@ app.controller('ScoreCardController', ['$scope', 'scoreParser', function($scope,
     
     $scope.frames = [];   
     
-    function recalculatelScores () {
+    function recalculateScores () {
         $scope.totalScore = 0;
         
         for(var frameIndex = 0; frameIndex < $scope.frames.length; frameIndex++){
@@ -70,7 +70,7 @@ app.controller('ScoreCardController', ['$scope', 'scoreParser', function($scope,
     
     $scope.enterPlayerScore = function(frame, tryNumber, score) {
         addScoreToFrame(frame, tryNumber, score);
-        recalculatelScores();
+        recalculateScores();
     };
 
 }]);
