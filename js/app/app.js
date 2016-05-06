@@ -13,6 +13,7 @@ var PlayerScoreRow = function(playerName) {
     for (var frameIndex = 0; frameIndex < 10; frameIndex++) {
         framesArray.push(new Frame());
     }
+    framesArray[9].tryScores.push('-');
     
     this.playerName = playerName || "";
     this.totalScore = 0;

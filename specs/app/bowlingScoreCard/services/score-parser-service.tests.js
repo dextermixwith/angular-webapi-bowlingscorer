@@ -1,4 +1,4 @@
-describe("scoreParser", function(){
+describe("Score Parser service", function(){
     beforeEach(function(){
         module('bowlingScorer');
         inject(function(_scoreParser_){

@@ -1,3 +1,5 @@
+'use strict';
+
 var scoreCard, mockScoreCalculator, updatedPlayerRow;
 
 describe("scoreCard", function(){

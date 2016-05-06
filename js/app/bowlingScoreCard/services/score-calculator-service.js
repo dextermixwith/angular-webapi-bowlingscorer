@@ -1,9 +1,65 @@
 'use strict';
 
-app.factory('scoreCalculator', function(){
+app.factory('scoreCalculator', ['scoreParser', function(scoreParser){
    return {
        recalculateScores : function(playerScoreRow) {
-           
-       }
-   };
-});
+            playerScoreRow.totalScore = 0;
+
+            for(var frameIndex = 0; frameIndex < playerScoreRow.frames.length; frameIndex++){
+               if (playerScoreRow.frames[frameIndex].tryScores[0] != '-') { 
+                    var frameComplete = false;
+                    var frameScoreValue = 0;
+                    
+                    for(var tryIndex = 0; tryIndex < playerScoreRow.frames[frameIndex].tryScores.length && !frameComplete; tryIndex++) {
+                        var tryScore = playerScoreRow.frames[frameIndex].tryScores[tryIndex];
+                        
+                        if(tryScore !== '-') {                        
+                            frameScoreValue += scoreParser.toInt(tryScore);
+                            frameComplete = frameIndex === 9 ? tryIndex === (playerScoreRow.frames[frameIndex].tryScores.length - 1) : (tryIndex > 0);
+                        }
+                    }
+                    
+                    
+                    if (frameComplete && frameScoreValue === 10){
+                        playerScoreRow.frames[frameIndex].score = '/';
+                    } else if (!frameComplete && frameScoreValue === 10){
+                        playerScoreRow.frames[frameIndex].score = 'X';
+                    } else if (frameComplete){
+                        playerScoreRow.totalScore += frameScoreValue; 
+                        playerScoreRow.frames[frameIndex].score = frameScoreValue >= 10 && frameIndex === 9 ? '/' : frameScoreValue.toString();
+                    } 
+
+                    console.log('frameIndex = ' + frameIndex + ' frameScoreValue = ' + frameScoreValue + ' frameComplete = ' + frameComplete + " layerScoreRow.frames[frameIndex].score = " + playerScoreRow.frames[frameIndex].score);
+
+                    var previousSpare = (frameIndex > 0) && (playerScoreRow.frames[frameIndex - 1].score === '/');
+                    
+                    if(previousSpare) {
+                        var previousSpareScore = 10 + scoreParser.toInt(playerScoreRow.frames[frameIndex].tryScores[0]);
+                        playerScoreRow.frames[frameIndex - 1].scoreValue += previousSpareScore;
+                        playerScoreRow.frames[frameIndex].scoreValue += previousSpareScore;
+                        playerScoreRow.totalScore += previousSpareScore;
+                    }  
+
+                    var previousStrike = (frameIndex > 1) && playerScoreRow.frames[frameIndex - 2].score === 'X' && (playerScoreRow.frames[frameIndex].tryScores[1] !== '-' || playerScoreRow.frames[frameIndex].tryScores[0] === 'X');
+                    
+                    if(previousStrike) {
+                        var previousStrikeScore = 10 + scoreParser.toInt(playerScoreRow.frames[frameIndex].tryScores[0])  + scoreParser.toInt(playerScoreRow.frames[frameIndex].tryScores[1]) + scoreParser.toInt(playerScoreRow.frames[frameIndex - 1].tryScores[0]) + scoreParser.toInt(playerScoreRow.frames[frameIndex - 1].tryScores[1]);
+                        playerScoreRow.totalScore += previousStrikeScore;                    
+                        playerScoreRow.frames[frameIndex - 2].scoreValue += previousStrikeScore;
+                        playerScoreRow.frames[frameIndex - 1].scoreValue += previousStrikeScore;
+                        playerScoreRow.frames[frameIndex].scoreValue += previousStrikeScore;
+                    }
+
+                    
+                    if (frameIndex === 9 && playerScoreRow.frames[frameIndex].tryScores[0] === 'X') {
+                        playerScoreRow.totalScore += scoreParser.toInt(playerScoreRow.frames[frameIndex].tryScores[1]) + scoreParser.toInt(playerScoreRow.frames[frameIndex].tryScores[2]) ;
+                    }  
+                                    
+                    playerScoreRow.frames[frameIndex].scoreValue = playerScoreRow.totalScore;
+                }
+            }
+            
+            return playerScoreRow;   
+        }
+    };
+}]);

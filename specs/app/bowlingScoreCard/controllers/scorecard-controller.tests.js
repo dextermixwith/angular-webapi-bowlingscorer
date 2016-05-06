@@ -92,7 +92,7 @@ describe("Scorecard Controller", function() {
     
     describe("Total for frame is 10 (spare) - ", function() {
        
-        it("when 5, 5 entered, then frame score for frame 1 is 0 and total score is 10", function() {
+        it("when 5, 5 entered, then frame score for frame 1 is 0 and total score is 0", function() {
             $controller('ScoreCardController', { $scope: $scope });
             
             $scope.enterPlayerScore(0, 0, '5');
