@@ -29,8 +29,6 @@ app.factory('scoreCalculator', ['scoreParser', function(scoreParser){
                         playerScoreRow.frames[frameIndex].score = frameScoreValue >= 10 && frameIndex === 9 ? '/' : frameScoreValue.toString();
                     } 
 
-                    console.log('frameIndex = ' + frameIndex + ' frameScoreValue = ' + frameScoreValue + ' frameComplete = ' + frameComplete + " layerScoreRow.frames[frameIndex].score = " + playerScoreRow.frames[frameIndex].score);
-
                     var previousSpare = (frameIndex > 0) && (playerScoreRow.frames[frameIndex - 1].score === '/');
                     
                     if(previousSpare) {
