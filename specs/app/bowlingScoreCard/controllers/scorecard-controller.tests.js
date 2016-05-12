@@ -25,5 +25,13 @@ describe("Scorecard Controller", function() {
 
 			expect(mockScoreCard.addScoreToFrame).toHaveBeenCalledWith(2, 1, 6);
 		});
+        
+        it("should transform a blank string entered as a score to a '-'", function() {
+            $controller('ScoreCardController', { $scope: $scope });
+            
+            $scope.enterPlayerScore(2, 1, "");
+
+			expect(mockScoreCard.addScoreToFrame).toHaveBeenCalledWith(2, 1, "-");
+        });
 	});
 });

@@ -5,6 +5,9 @@ app.controller('ScoreCardController', ['$scope', 'scoreCard', function($scope, s
     $scope.scoreCard = scoreCard;
     
     $scope.enterPlayerScore = function(frame, tryNumber, score) {
+        if (score === "") {
+            score = "-";
+        }
         $scope.scoreCard.addScoreToFrame(frame, tryNumber, score);
     };
 
