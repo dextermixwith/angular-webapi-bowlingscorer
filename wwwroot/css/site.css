@@ -24,10 +24,13 @@ textarea {
 }
 
 .singleFigureScore {
-    width: 20px;
+    width: 18px;
     text-align: center;
 }
 .threeFigureScore {
-    width: 40px;
+    width: 36px;
     text-align: center;
+}
+.playerName {
+    width: 125px;
 }

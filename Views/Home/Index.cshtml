@@ -3,113 +3,34 @@
 }
 <h2>Score Card</h2>
 <div ng-controller="ScoreCardController">
-    <table class="table table-bordered table-striped">
-        <thead>
-            <th>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
                 <input type="text" class="form-control" id="playerName" placeholder="Player Name Here" ng-model="scoreCard.playerRows[0].playerName"/>
-            </th>
-            <th>1</th>
-            <th>2</th>
-            <th>3</th>
-            <th>4</th>
-            <th>5</th>
-            <th>6</th>
-            <th>7</th>
-            <th>8</th>
-            <th>9</th>
-            <th>10</th>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row" rowspan="2">
-                </th>
-                
-                <td class="text-right">
-                    <input id="player1turn1roll1" type="text" maxlength="1" placeholder="-" class="singleFigureScore" ng-change="enterPlayerScore(0, 0, scoreCard.playerRows[0].frames[0].tryScores[0])" ng-model="::scoreCard.playerRows[0].frames[0].tryScores[0]"/>
-                    <input id="player1turn1roll2" type="text" maxlength="1" placeholder="-"  class="singleFigureScore" ng-change="enterPlayerScore(0, 1, scoreCard.playerRows[0].frames[0].tryScores[1])" ng-model="::scoreCard.playerRows[0].frames[0].tryScores[1]"/>                    
-                </td>
-                
-                <td class="text-right">
-                    <input id="player1turn2roll1" type="text" maxlength="1" placeholder="-" class="singleFigureScore" ng-change="enterPlayerScore(1, 0, scoreCard.playerRows[0].frames[1].tryScores[0])" ng-model="::scoreCard.playerRows[0].frames[1].tryScores[0]"/>
-                    <input id="player1turn2roll2" type="text" maxlength="1" placeholder="-"  class="singleFigureScore" ng-change="enterPlayerScore(1, 1, scoreCard.playerRows[0].frames[1].tryScores[1])" ng-model="::scoreCard.playerRows[0].frames[1].tryScores[1]"/>                    
-                </td>                    
-                <td class="text-right">
-                    <input id="player1turn3roll1" type="text" maxlength="1" placeholder="-" class="singleFigureScore" ng-change="enterPlayerScore(2, 0, scoreCard.playerRows[0].frames[2].tryScores[0])" ng-model="::scoreCard.playerRows[0].frames[2].tryScores[0]"/>
-                    <input id="player1turn3roll2" type="text" maxlength="1" placeholder="-"  class="singleFigureScore" ng-change="enterPlayerScore(2, 1, scoreCard.playerRows[0].frames[2].tryScores[1])" ng-model="::scoreCard.playerRows[0].frames[2].tryScores[1]"/>                    
-                </td>                    
-                <td class="text-right">
-                    <input id="player1turn4roll1" type="text" maxlength="1" placeholder="-" class="singleFigureScore" ng-change="enterPlayerScore(3, 0, scoreCard.playerRows[0].frames[3].tryScores[0])" ng-model="::scoreCard.playerRows[0].frames[3].tryScores[0]"/>
-                    <input id="player1turn4roll2" type="text" maxlength="1" placeholder="-"  class="singleFigureScore" ng-change="enterPlayerScore(3, 1, scoreCard.playerRows[0].frames[3].tryScores[1])" ng-model="::scoreCard.playerRows[0].frames[3].tryScores[1]"/>                    
-                </td>                    
-                <td class="text-right">
-                    <input id="player1turn5roll1" type="text" maxlength="1" placeholder="-" class="singleFigureScore" ng-change="enterPlayerScore(4, 0, scoreCard.playerRows[0].frames[4].tryScores[0])" ng-model="::scoreCard.playerRows[0].frames[4].tryScores[0]"/>
-                    <input id="player1turn5roll2" type="text" maxlength="1" placeholder="-"  class="singleFigureScore" ng-change="enterPlayerScore(4, 1, scoreCard.playerRows[0].frames[4].tryScores[1])" ng-model="::scoreCard.playerRows[0].frames[4].tryScores[1]"/>                    
-                </td>                    
-                <td class="text-right">
-                    <input id="player1turn6roll1" type="text" maxlength="1" placeholder="-" class="singleFigureScore" ng-change="enterPlayerScore(5, 0, scoreCard.playerRows[0].frames[5].tryScores[0])" ng-model="::scoreCard.playerRows[0].frames[5].tryScores[0]"/>
-                    <input id="player1turn6roll2" type="text" maxlength="1" placeholder="-"  class="singleFigureScore" ng-change="enterPlayerScore(5, 1, scoreCard.playerRows[0].frames[5].tryScores[1])" ng-model="::scoreCard.playerRows[0].frames[5].tryScores[1]"/>                    
-                </td>                    
-                <td class="text-right">
-                    <input id="player1turn7roll1" type="text" maxlength="1" placeholder="-" class="singleFigureScore" ng-change="enterPlayerScore(6, 0, scoreCard.playerRows[0].frames[6].tryScores[0])" ng-model="::scoreCard.playerRows[0].frames[6].tryScores[0]"/>
-                    <input id="player1turn7roll2" type="text" maxlength="1" placeholder="-"  class="singleFigureScore" ng-change="enterPlayerScore(6, 1, scoreCard.playerRows[0].frames[6].tryScores[1])" ng-model="::scoreCard.playerRows[0].frames[6].tryScores[1]"/>                    
-                </td>                    
-                <td class="text-right">
-                    <input id="player1turn8roll1" type="text" maxlength="1" placeholder="-" class="singleFigureScore" ng-change="enterPlayerScore(7, 0, scoreCard.playerRows[0].frames[7].tryScores[0])" ng-model="::scoreCard.playerRows[0].frames[7].tryScores[0]"/>
-                    <input id="player1turn8roll2" type="text" maxlength="1" placeholder="-"  class="singleFigureScore" ng-change="enterPlayerScore(7, 1, scoreCard.playerRows[0].frames[7].tryScores[1])" ng-model="::scoreCard.playerRows[0].frames[7].tryScores[1]"/>                    
-                </td>                    
-                <td class="text-right">
-                    <input id="player1turn9roll1" type="text" maxlength="1" placeholder="-" class="singleFigureScore" ng-change="enterPlayerScore(8, 0, scoreCard.playerRows[0].frames[8].tryScores[0])" ng-model="::scoreCard.playerRows[0].frames[8].tryScores[0]"/>
-                    <input id="player1turn9roll2" type="text" maxlength="1" placeholder="-"  class="singleFigureScore" ng-change="enterPlayerScore(8, 1, scoreCard.playerRows[0].frames[8].tryScores[1])" ng-model="::scoreCard.playerRows[0].frames[8].tryScores[1]"/>                    
-                </td>                    
-
-                <td class="text-right">
-                    <input id="player1turn10roll1" type="text" maxlength="1" placeholder="-" class="singleFigureScore" ng-change="enterPlayerScore(9, 0, scoreCard.playerRows[0].frames[9].tryScores[0])" ng-model="::scoreCard.playerRows[0].frames[9].tryScores[0]"/>
-                    <input id="player1turn10roll2" type="text" maxlength="1" placeholder="-"  class="singleFigureScore" ng-change="enterPlayerScore(9, 1, scoreCard.playerRows[0].frames[9].tryScores[1])" ng-model="::scoreCard.playerRows[0].frames[9].tryScores[1]"/>                    
-                    <input id="player1turn10roll3" type="text" maxlength="1" placeholder="-"  class="singleFigureScore" ng-change="enterPlayerScore(9, 2, scoreCard.playerRows[0].frames[9].tryScores[2])" ng-model="::scoreCard.playerRows[0].frames[9].tryScores[2]"/>                    
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {{scoreCard.playerRows[0].frames[0].scoreValue}}
-                </td>
-
-                <td>
-                    {{scoreCard.playerRows[0].frames[1].scoreValue}}
-                </td>
-
-                <td>
-                    {{scoreCard.playerRows[0].frames[2].scoreValue}}
-                </td>
-
-                <td>
-                    {{scoreCard.playerRows[0].frames[3].scoreValue}}
-                </td>
-
-                <td>
-                    {{scoreCard.playerRows[0].frames[4].scoreValue}}
-                </td>
-
-                <td>
-                    {{scoreCard.playerRows[0].frames[5].scoreValue}}
-                </td>
-
-                <td>
-                    {{scoreCard.playerRows[0].frames[6].scoreValue}}
-                </td>
-
-                <td>
-                    {{scoreCard.playerRows[0].frames[7].scoreValue}}
-                </td>
-
-                <td>
-                    {{scoreCard.playerRows[0].frames[8].scoreValue}}
-                </td>
-
-                <td>
-                    {{scoreCard.playerRows[0].frames[9].scoreValue}}
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    
+            </div>
+            <span ng-repeat="frame in scoreCard.playerRows[0].frames">
+                <div class="col-md-1 frame-header">{{$index + 1}}</div>
+            </span>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <span ng-repeat="frame in scoreCard.playerRows[0].frames">
+                <div class="col-md-1 text-right frame-cell">
+                    <input type="text" placeholder="-" class="singleFigureScore" ng-change="enterPlayerScore(0, 0, frame.tryScores[0])" ng-model="::frame.tryScores[0]"/>
+                    <input type="text" placeholder="-" class="singleFigureScore" ng-change="enterPlayerScore(0, 1, frame.tryScores[1])" ng-model="::frame.tryScores[1]"/>                    
+                    <input type="text" placeholder="-" class="singleFigureScore" ng-show="$last" ng-change="enterPlayerScore(0, 1, frame.tryScores[1])" ng-model="::frame.tryScores[3]"/>                    
+                </div>
+            </span>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <span ng-repeat="frame in scoreCard.playerRows[0].frames">
+                <div class="col-md-1 frame-score text-right">
+                    {{frame.scoreValue}}
+                </div>
+            </span>
+        </div>
+    </div>
 </div>
