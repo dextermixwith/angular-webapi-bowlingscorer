@@ -17,9 +17,9 @@
             </div>
             <span ng-repeat="frame in scoreCard.playerRows[0].frames">
                 <div class="col-md-1 text-right frame-cell">
-                    <input type="text" placeholder="-" class="singleFigureScore" ng-change="enterPlayerScore(0, 0, frame.tryScores[0])" ng-model="::frame.tryScores[0]"/>
-                    <input type="text" placeholder="-" class="singleFigureScore" ng-change="enterPlayerScore(0, 1, frame.tryScores[1])" ng-model="::frame.tryScores[1]"/>                    
-                    <input type="text" placeholder="-" class="singleFigureScore" ng-show="$last" ng-change="enterPlayerScore(0, 1, frame.tryScores[1])" ng-model="::frame.tryScores[3]"/>                    
+                    <input type="text" placeholder="-" class="singleFigureScore" ng-focus="selectTryScore($event)" ng-change="enterPlayerScore($index, 0, frame.tryScores[0])" ng-model="::frame.tryScores[0]"/>
+                    <input type="text" placeholder="-" class="singleFigureScore" ng-focus="selectTryScore($event)" ng-change="enterPlayerScore($index, 1, frame.tryScores[1])" ng-model="::frame.tryScores[1]"/>                    
+                    <input type="text" placeholder="-" class="singleFigureScore" ng-focus="selectTryScore($event)" ng-show="$last" ng-change="enterPlayerScore($index, 2, frame.tryScores[2])" ng-model="::frame.tryScores[2]"/>                    
                 </div>
             </span>
         </div>

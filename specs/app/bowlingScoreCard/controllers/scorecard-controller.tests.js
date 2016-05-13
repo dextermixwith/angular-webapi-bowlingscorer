@@ -6,8 +6,6 @@ describe("Scorecard Controller", function() {
         module('bowlingScorer', function($provide){
             mockScoreCard = jasmine.createSpyObj('scoreCard', ['addScoreToFrame']);    
             
-            mockScoreCard.addScoreToFrame();
-            
             $provide.value('scoreCard', mockScoreCard);            
         });
         
@@ -15,23 +13,21 @@ describe("Scorecard Controller", function() {
 		    $controller = _$controller_;
             $scope = {};
 	    })
+        
+        $controller('ScoreCardController', { $scope: $scope });
     });
     
 	describe("New Score Entered", function() {
         it("when new player try score entered, then score is added to frame on score card", function() {
-            $controller('ScoreCardController', { $scope: $scope });
-            
-            $scope.enterPlayerScore(2, 1, 6);
+            $scope.enterPlayerScore(2, 1, "6");
 
-			expect(mockScoreCard.addScoreToFrame).toHaveBeenCalledWith(2, 1, 6);
+			expect(mockScoreCard.addScoreToFrame).toHaveBeenCalledWith(2, 1, "6");
 		});
         
-        it("should transform a blank string entered as a score to a '-'", function() {
-            $controller('ScoreCardController', { $scope: $scope });
-            
+        it("should not update scores when blank string entered", function() {
             $scope.enterPlayerScore(2, 1, "");
 
-			expect(mockScoreCard.addScoreToFrame).toHaveBeenCalledWith(2, 1, "-");
+			expect(mockScoreCard.addScoreToFrame).not.toHaveBeenCalled();
         });
 	});
 });

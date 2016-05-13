@@ -5,10 +5,13 @@ app.controller('ScoreCardController', ['$scope', 'scoreCard', function($scope, s
     $scope.scoreCard = scoreCard;
     
     $scope.enterPlayerScore = function(frame, tryNumber, score) {
-        if (score === "") {
-            score = "-";
+        if (score !== "") {
+            $scope.scoreCard.addScoreToFrame(frame, tryNumber, score);
         }
-        $scope.scoreCard.addScoreToFrame(frame, tryNumber, score);
+    };
+    
+    $scope.selectTryScore = function ($event) {
+        $event.target.select();
     };
 
 }]);
