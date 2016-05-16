@@ -119,7 +119,7 @@ describe("Score Calculator service", function(){
         
     describe("Total for frame is 10 (spare) - ", function() {
        
-        it("when 5, 5 entered, then frame score for frame 1 is 0 and total score is 10", function() {
+        it("when 5, 5 entered, then frame score for frame 1 is 0 and total score is 0", function() {
             playerScoreRow.frames[0].tryScores[0] = "5";
             playerScoreRow.frames[0].tryScores[1] = "5";
             
@@ -134,6 +134,22 @@ describe("Score Calculator service", function(){
             expect(updatedPlayScoreRow.totalScore).toEqual(0);  
         });
        
+        it("when 5, / entered, then frame score for frame 1 is 0 and total score is 0", function() {
+            playerScoreRow.frames[0].tryScores[0] = "5";
+            playerScoreRow.frames[0].tryScores[1] = "/";
+            
+            mockScoreParser.toInt.and.returnValues(5);
+
+            var updatedPlayScoreRow = scoreCalculator.recalculateScores(playerScoreRow);
+
+            expect(mockScoreParser.toInt).toHaveBeenCalledWith("5");
+            expect(mockScoreParser.toInt).toHaveBeenCalledTimes(1);
+
+            expect(updatedPlayScoreRow.frames[0].scoreValue).toEqual(0);
+            expect(updatedPlayScoreRow.frames[0].score).toEqual("/");
+            expect(updatedPlayScoreRow.totalScore).toEqual(0);  
+        });
+               
         it("when 5, 5, 5 then 1 entered, then score for frame 1 is 15 and score for frame 2 is 21 and total score 21", function() {
             playerScoreRow.frames[0].tryScores[0] = "5";
             playerScoreRow.frames[0].tryScores[1] = "5";
@@ -152,7 +168,27 @@ describe("Score Calculator service", function(){
             expect(updatedPlayScoreRow.frames[1].scoreValue).toEqual(21);
             expect(updatedPlayScoreRow.totalScore).toEqual(21);  
         }); 
-       
+               
+        it("when 5, /, 5 then 1 entered, then score for frame 1 is 15 and score for frame 2 is 21 and total score 21", function() {
+            playerScoreRow.frames[0].tryScores[0] = "5";
+            playerScoreRow.frames[0].tryScores[1] = "/";
+            playerScoreRow.frames[1].tryScores[0] = "5";
+            playerScoreRow.frames[1].tryScores[1] = "1";
+            
+            mockScoreParser.toInt.and.returnValues(5, 5, 1, 5);
+            
+            var updatedPlayScoreRow = scoreCalculator.recalculateScores(playerScoreRow);
+            
+            expect(mockScoreParser.toInt).toHaveBeenCalledWith("5");
+            expect(mockScoreParser.toInt).toHaveBeenCalledWith("1");
+            expect(mockScoreParser.toInt).toHaveBeenCalledTimes(4);
+
+            expect(updatedPlayScoreRow.frames[0].scoreValue).toEqual(15);
+            expect(updatedPlayScoreRow.frames[0].score).toEqual("/");
+            expect(updatedPlayScoreRow.frames[1].scoreValue).toEqual(21);
+            expect(updatedPlayScoreRow.totalScore).toEqual(21);  
+        }); 
+               
         it("when 5, 5, 5 then 5 entered, then score for frame is 15 and score for frame 2 is 15 and total score is 15 ", function() {
             playerScoreRow.frames[0].tryScores[0] = "5";
             playerScoreRow.frames[0].tryScores[1] = "5";
@@ -214,7 +250,33 @@ describe("Score Calculator service", function(){
             
             expect(updatedPlayScoreRow.totalScore).toEqual(37);  
         });
-        
+                 
+        it("when 3, /, 2, /, 5 then 2 entered,  then score for frame is 12 for frame 1, and score for frame 2 is 27, and score for frame 3 is 34, and total score is 34 ", function() {
+            playerScoreRow.frames[0].tryScores[0] = "3";
+            playerScoreRow.frames[0].tryScores[1] = "/";
+            playerScoreRow.frames[1].tryScores[0] = "2";
+            playerScoreRow.frames[1].tryScores[1] = "/";
+            playerScoreRow.frames[2].tryScores[0] = "5";
+            playerScoreRow.frames[2].tryScores[1] = "2";
+            
+            mockScoreParser.toInt.and.returnValues(3, 2, 2, 5, 2, 5);
+            
+            var updatedPlayScoreRow = scoreCalculator.recalculateScores(playerScoreRow);
+            
+            expect(mockScoreParser.toInt).toHaveBeenCalledWith("3");
+            expect(mockScoreParser.toInt).toHaveBeenCalledWith("2");
+            expect(mockScoreParser.toInt).toHaveBeenCalledWith("5");
+            expect(mockScoreParser.toInt).toHaveBeenCalledTimes(6);
+            
+            expect(updatedPlayScoreRow.frames[0].scoreValue).toEqual(12);
+            expect(updatedPlayScoreRow.frames[0].score).toEqual("/");
+            expect(updatedPlayScoreRow.frames[1].scoreValue).toEqual(27);
+            expect(updatedPlayScoreRow.frames[1].score).toEqual("/");
+            expect(updatedPlayScoreRow.frames[2].scoreValue).toEqual(34);
+            
+            expect(updatedPlayScoreRow.totalScore).toEqual(34);  
+        });
+                
         it("when 5 entered for all tries plus an extra try score of 5 in frame 10, then total score s 150 and each frame score accumulates correctly", function() {
 
             for(var frameIndex = 0; frameIndex < 10; frameIndex++){

@@ -13,8 +13,14 @@ app.factory('scoreCalculator', ['scoreParser', function(scoreParser){
                     for(var tryIndex = 0; tryIndex < playerScoreRow.frames[frameIndex].tryScores.length && !frameComplete; tryIndex++) {
                         var tryScore = playerScoreRow.frames[frameIndex].tryScores[tryIndex];
                         
-                        if(tryScore !== '-') {                        
-                            frameScoreValue += scoreParser.toInt(tryScore);
+                        if(tryScore !== '-') {
+                            if (tryScore === '/' && tryIndex === 1) {
+                                tryScore = (10 - parseInt(playerScoreRow.frames[frameIndex].tryScores[0])).toString();
+                                frameScoreValue = 10;
+                            } else {
+                                frameScoreValue += scoreParser.toInt(tryScore);
+                            }                        
+    
                             frameComplete = frameIndex === 9 ? tryIndex === (playerScoreRow.frames[frameIndex].tryScores.length - 1) : (tryIndex > 0);
                         }
                     }
