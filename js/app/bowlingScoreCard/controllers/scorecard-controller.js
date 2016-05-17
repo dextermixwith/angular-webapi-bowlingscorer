@@ -3,10 +3,16 @@
 app.controller('ScoreCardController', ['$scope', 'scoreCard', function($scope, scoreCard) {
     
     $scope.scoreCard = scoreCard;
+    $scope.errorMessage = "";
     
     $scope.enterPlayerScore = function(frame, tryNumber, score) {
         if (score !== "") {
-            $scope.scoreCard.addScoreToFrame(frame, tryNumber, score);
+            try {
+                $scope.scoreCard.addScoreToFrame(frame, tryNumber, score);
+                $scope.errorMessage = "";
+            } catch (error) {
+                $scope.errorMessage = error.message + " : " + score;  
+            }
         }
     };
     

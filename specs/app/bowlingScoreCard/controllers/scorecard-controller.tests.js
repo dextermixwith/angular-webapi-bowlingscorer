@@ -30,4 +30,27 @@ describe("Scorecard Controller", function() {
 			expect(mockScoreCard.addScoreToFrame).not.toHaveBeenCalled();
         });
 	});
+    
+    describe("Invalid score is entered", function(){
+       it("should handle an invalid score error", function(){
+           mockScoreCard.addScoreToFrame.and.throwError("Invalid score entered");
+           var invalidScoreValue = "kjshkjdhakjd";
+           $scope.enterPlayerScore(3, 1, invalidScoreValue);
+           
+           expect(mockScoreCard.addScoreToFrame).toHaveBeenCalledWith(3, 1, invalidScoreValue);
+           
+           expect($scope.errorMessage).toEqual("Invalid score entered : " + invalidScoreValue);
+       });
+       
+       it("should clear invalid score error when valid score entered after invalid score", function(){
+           var validScoreValue = "3";
+           $scope.errorMessage = "skjdfhldskjfhldskjfhlksdj";
+           
+           $scope.enterPlayerScore(3, 1, validScoreValue);
+
+           expect(mockScoreCard.addScoreToFrame).toHaveBeenCalledWith(3, 1, validScoreValue);
+
+           expect($scope.errorMessage).toEqual("");
+       });
+    });
 });
