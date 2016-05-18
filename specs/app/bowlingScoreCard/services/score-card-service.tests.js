@@ -51,7 +51,7 @@ describe("scoreCard", function(){
                 }
             };
             
-            scoreCard.addScoreToFrame(0, 0, "6");
+            scoreCard.addScoreToFrame(0, 0, 0, "6");
             expect(mockScoreCalculator.recalculateScores).toHaveBeenCalledWith(updateTryScoreTester);
             expect(scoreCard.playerRows[0]).toBe(updatedPlayerRow);
         });
@@ -63,7 +63,7 @@ describe("scoreCard", function(){
                 }
             };
             
-            scoreCard.addScoreToFrame(0, 0, "X");
+            scoreCard.addScoreToFrame(0, 0, 0, "X");
             expect(mockScoreCalculator.recalculateScores).toHaveBeenCalledWith(updateTryScoreTester);
             expect(scoreCard.playerRows[0]).toBe(updatedPlayerRow);
         });
@@ -75,7 +75,7 @@ describe("scoreCard", function(){
                 }
             };
             
-            scoreCard.addScoreToFrame(0, 0, "x");
+            scoreCard.addScoreToFrame(0, 0, 0, "x");
             expect(mockScoreCalculator.recalculateScores).toHaveBeenCalledWith(updateTryScoreTester);
             expect(scoreCard.playerRows[0]).toBe(updatedPlayerRow);
         });
@@ -88,7 +88,7 @@ describe("scoreCard", function(){
                 }
             };
              
-            scoreCard.addScoreToFrame(0, 1, "/");
+            scoreCard.addScoreToFrame(0, 0, 1, "/");
             expect(mockScoreCalculator.recalculateScores).toHaveBeenCalledWith(updateTryScoreTesterForTryScore2);
 
             expect(scoreCard.playerRows[0]).toBe(updatedPlayerRow);
@@ -102,7 +102,7 @@ describe("scoreCard", function(){
                 }
             };
              
-            scoreCard.addScoreToFrame(9, 1, "X");
+            scoreCard.addScoreToFrame(0, 9, 1, "X");
             expect(mockScoreCalculator.recalculateScores).toHaveBeenCalledWith(updateTryScoreTester);
 
             expect(scoreCard.playerRows[0]).toBe(updatedPlayerRow);
@@ -116,7 +116,7 @@ describe("scoreCard", function(){
                 }
             };
              
-            scoreCard.addScoreToFrame(0, 1, "-");
+            scoreCard.addScoreToFrame(0, 0, 1, "-");
             expect(mockScoreCalculator.recalculateScores).toHaveBeenCalledWith(updateTryScoreTester);
 
             expect(scoreCard.playerRows[0]).toBe(updatedPlayerRow);
@@ -126,7 +126,7 @@ describe("scoreCard", function(){
     describe("Adding an invalid try score entry", function() {
         it("should throw an error when a numeric value > 9 is entered", function(){
             try {
-                scoreCard.addScoreToFrame(0, 0, "10");
+                scoreCard.addScoreToFrame(0, 0, 0, "10");
                 fail("Expected call to addScoreToFrame with non-numeric score to throw an error"); 
             } catch (error) {
                 expect(error.message).toEqual("Try score entered must be number between 0 and 9, '-' (for a missed try), 'X' for a first try score or '/' for a second try score of a frame");
@@ -135,7 +135,7 @@ describe("scoreCard", function(){
         
         it("should throw an error when a non-numeric value is entered ", function(){
             try {
-                scoreCard.addScoreToFrame(0, 0, "jhsslajhdg");
+                scoreCard.addScoreToFrame(0, 0, 0, "jhsslajhdg");
                 fail("Expected call to addScoreToFrame with non-numeric score to throw an error"); 
             } catch (error) {
                 expect(error.message).toEqual("Try score entered must be number between 0 and 9, '-' (for a missed try), 'X' for a first try score or '/' for a second try score of a frame");
@@ -144,7 +144,7 @@ describe("scoreCard", function(){
              
         it("should throw an error when a '/' is entered for second try of frame", function(){
             try {
-                scoreCard.addScoreToFrame(0, 0, "/");
+                scoreCard.addScoreToFrame(0, 0, 0, "/");
                 fail("Expected call to addScoreToFrame with '/' score to throw an error"); 
             } catch (error) {
                 expect(error.message).toEqual("Try score can only be entered as '/' for a second try in a frame");
@@ -153,12 +153,19 @@ describe("scoreCard", function(){
              
         it("should throw an error when a 'X' is entered for second try of frame and not in frame 10", function(){
             try {
-                scoreCard.addScoreToFrame(0, 1, "X");
+                scoreCard.addScoreToFrame(0, 0, 1, "X");
                 fail("Expected call to addScoreToFrame with 'X' score on second try when on in frame 10 to throw an error"); 
             } catch (error) {
                 expect(error.message).toEqual("Try score can only be entered as 'X' for a first try in a frame, before frame 10");
             }
         });  
+    });
+    
+    describe("Adding new player", function(){
+        it("should add a new player row when add player row is called", function(){
+            scoreCard.addPlayerRow();
+            expect(scoreCard.playerRows.length).toEqual(2);    
+        });
     });
 
 });

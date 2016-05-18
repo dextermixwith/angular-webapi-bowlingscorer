@@ -7,34 +7,41 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         {{errorMessage}}
     </div>
-    <div class="container">
+    <div class="container" ng-repeat="playerRow in scoreCard.playerRows">
         <div class="row">
             <div class="col-md-2">
-                <input type="text" class="form-control" id="playerName" placeholder="Player Name Here" ng-model="scoreCard.playerRows[0].playerName"/>
+                <input type="text" class="form-control" id="playerName" placeholder="Player Name Here" ng-model="playerRow.playerName"/>
             </div>
-            <span ng-repeat="frame in scoreCard.playerRows[0].frames">
+            <span ng-repeat="frame in playerRow.frames">
                 <div class="col-md-1 frame-header">{{$index + 1}}</div>
             </span>
         </div>
         <div class="row">
             <div class="col-md-2">
             </div>
-            <span ng-repeat="frame in scoreCard.playerRows[0].frames">
+            <span ng-repeat="frame in playerRow.frames">
                 <div class="col-md-1 text-right frame-cell">
-                    <input type="text" placeholder="-" class="singleFigureScore" ng-focus="selectTryScore($event)" ng-change="enterPlayerScore($index, 0, frame.tryScores[0])" ng-model="::frame.tryScores[0]"/>
-                    <input type="text" placeholder="-" class="singleFigureScore" ng-focus="selectTryScore($event)" ng-change="enterPlayerScore($index, 1, frame.tryScores[1])" ng-model="::frame.tryScores[1]"/>                    
-                    <input type="text" placeholder="-" class="singleFigureScore" ng-focus="selectTryScore($event)" ng-show="$last" ng-change="enterPlayerScore($index, 2, frame.tryScores[2])" ng-model="::frame.tryScores[2]"/>                    
+                    <input type="text" placeholder="-" class="singleFigureScore" ng-focus="selectTryScore($event)" ng-change="enterPlayerScore($parent.$index, $index, 0, frame.tryScores[0])" ng-model="::frame.tryScores[0]"/>
+                    <input type="text" placeholder="-" class="singleFigureScore" ng-focus="selectTryScore($event)" ng-change="enterPlayerScore($parent.$index, $index, 1, frame.tryScores[1])" ng-model="::frame.tryScores[1]"/>                    
+                    <input type="text" placeholder="-" class="singleFigureScore" ng-focus="selectTryScore($event)" ng-show="$last" ng-change="enterPlayerScore($parent.$index, $index, 2, frame.tryScores[2])" ng-model="::frame.tryScores[2]"/>                    
                 </div>
             </span>
         </div>
         <div class="row">
             <div class="col-md-2">
             </div>
-            <span ng-repeat="frame in scoreCard.playerRows[0].frames">
+            <span ng-repeat="frame in playerRow.frames">
                 <div class="col-md-1 frame-score text-right">
                     {{frame.scoreValue}}
                 </div>
             </span>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="button" class="btn btn-primary" ng-click="addPlayer()">Add Player</button> 
+            </div>
         </div>
     </div>
 </div>
