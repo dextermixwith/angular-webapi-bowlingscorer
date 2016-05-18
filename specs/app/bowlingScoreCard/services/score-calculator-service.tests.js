@@ -486,4 +486,26 @@ describe("Score Calculator service", function(){
             expect(updatedPlayScoreRow.totalScore).toEqual(300);   
         });
     });
+    
+        
+    describe("Adding invalid try score entries", function(){
+        it("should throw an error when total score entered over 2 tries comes to over 10", function(){
+            playerScoreRow.frames[0].tryScores[0] = "4";
+            playerScoreRow.frames[0].tryScores[1] = "8";
+            
+            try {
+                mockScoreParser.toInt.and.returnValues(4, 8);
+                                                   
+                scoreCalculator.recalculateScores(playerScoreRow);
+                
+                fail("Expected error to be thrown when total score of a frame entered comes to more than 10"); 
+            } catch (error) {
+                expect(error.message).toEqual("Total try scores entered for frames 1 to 9 cannot come to more than 10");
+            }             
+            
+            expect(mockScoreParser.toInt).toHaveBeenCalledWith("4");
+            expect(mockScoreParser.toInt).toHaveBeenCalledWith("8");            
+            expect(mockScoreParser.toInt).toHaveBeenCalledTimes(2);
+        });
+    });
 });

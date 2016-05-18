@@ -23,8 +23,11 @@ app.factory('scoreCalculator', ['scoreParser', function(scoreParser){
     
                             frameComplete = frameIndex === 9 ? tryIndex === (playerScoreRow.frames[frameIndex].tryScores.length - 1) : (tryIndex > 0);
                         }
+                        
+                        if(tryIndex === 1 && frameScoreValue > 10 && !(frameIndex === 9 && tryScore === 'X')) {
+                            throw(new Error("Total try scores entered for frames 1 to 9 cannot come to more than 10"));
+                        }                    
                     }
-                    
                     
                     if (frameComplete && frameScoreValue === 10){
                         playerScoreRow.frames[frameIndex].score = '/';
@@ -32,7 +35,7 @@ app.factory('scoreCalculator', ['scoreParser', function(scoreParser){
                         playerScoreRow.frames[frameIndex].score = 'X';
                     } else if (frameComplete){
                         playerScoreRow.totalScore += frameScoreValue; 
-                        playerScoreRow.frames[frameIndex].score = frameScoreValue >= 10 && frameIndex === 9 ? '/' : frameScoreValue.toString();
+                        playerScoreRow.frames[frameIndex].score = frameScoreValue === 10 && frameIndex === 9 ? '/' : frameScoreValue.toString();
                     } 
 
                     var previousSpare = (frameIndex > 0) && (playerScoreRow.frames[frameIndex - 1].score === '/');
