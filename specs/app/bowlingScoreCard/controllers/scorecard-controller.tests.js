@@ -61,4 +61,13 @@ describe("Scorecard Controller", function() {
             expect(mockScoreCard.addPlayerRow).toHaveBeenCalled();        
         });
     });
+    
+    describe("Flag when game has started", function() {
+        it("should set the game started flag when first valid try score entered", function(){
+            $scope.enterPlayerScore(0, 0, 0, "1");
+
+			expect(mockScoreCard.addScoreToFrame).toHaveBeenCalledWith(0, 0, 0, "1");
+            expect($scope.gameStarted).toBe(true);             
+        });
+    });
 });
