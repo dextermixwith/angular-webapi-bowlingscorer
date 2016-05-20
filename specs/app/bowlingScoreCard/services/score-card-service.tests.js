@@ -167,5 +167,17 @@ describe("scoreCard", function(){
             expect(scoreCard.playerRows.length).toEqual(2);    
         });
     });
+    
+    describe("Clearing score card", function(){
+        it("should clear down the player rows when clear score card called", function() {
+            scoreCard.addPlayerRow();
+            scoreCard.addScoreToFrame(0, 0, 0, "X");
+            scoreCard.addScoreToFrame(1, 0, 0, "X");
+            scoreCard.clearScoreCard();
+            
+            expect(scoreCard.playerRows.length).toEqual(1);
+            expect(scoreCard.playerRows[0].frames[0].tryScores[0]).toEqual("-");    
+        });  
+    });
 
 });

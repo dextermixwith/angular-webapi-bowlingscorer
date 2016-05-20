@@ -27,6 +27,10 @@ app.factory('scoreCard', ['scoreCalculator', function(scoreCalculator) {
         
         addPlayerRow : function() {
             this.playerRows.push(new PlayerScoreRow());
+        },
+        
+        clearScoreCard : function() {
+            this.playerRows = [ new PlayerScoreRow() ];
         }
     } 
 }]);

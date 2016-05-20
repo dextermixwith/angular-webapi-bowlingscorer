@@ -17,6 +17,8 @@ module.exports = function(config) {
     files: [
       'wwwroot/lib/angular/angular.js',
       'wwwroot/lib/angular-mocks/angular-mocks.js',
+      'wwwroot/lib/angular-confirm-modal/angular-confirm.js',
+      'wwwroot/lib/angular-bootstrap/ui-bootstrap-tpls.js',
       'js/**/*.js',
       'specs/**/*.js'
     ],

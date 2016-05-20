@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('bowlingScorer', []);
+var app = angular.module('bowlingScorer', ['angular-confirm', 'ui.bootstrap.tpls']);
 
 var Frame = function() {
     this.tryScores = ['-', '-'];

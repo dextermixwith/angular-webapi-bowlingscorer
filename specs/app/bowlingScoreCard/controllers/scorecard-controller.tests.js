@@ -1,12 +1,16 @@
 describe("Scorecard Controller", function() {
 	var $controller;
     var $scope;
+    
+    var mockConfirm, mockScoreCard;
 	
 	beforeEach(function() {
         module('bowlingScorer', function($provide){
-            mockScoreCard = jasmine.createSpyObj('scoreCard', ['addScoreToFrame', 'addPlayerRow']);    
-            
-            $provide.value('scoreCard', mockScoreCard);            
+            mockScoreCard = jasmine.createSpyObj('scoreCard', ['addScoreToFrame', 'addPlayerRow', 'clearScoreCard']);    
+            mockConfirm = jasmine.createSpy('$confirm');
+           
+            $provide.value('scoreCard', mockScoreCard);
+            $provide.value('$confirm', mockConfirm);   
         });
         
         inject(function(_$controller_) {
@@ -69,5 +73,24 @@ describe("Scorecard Controller", function() {
 			expect(mockScoreCard.addScoreToFrame).toHaveBeenCalledWith(0, 0, 0, "1");
             expect($scope.gameStarted).toBe(true);             
         });
+        
+        it("should not set the game started flag when first try score entered is invalid", function(){
+            mockScoreCard.addScoreToFrame.and.throwError("Invalid score entered");
+            $scope.enterPlayerScore(0, 0, 0, "xxx");
+            
+            expect(mockScoreCard.addScoreToFrame).toHaveBeenCalledWith(0, 0, 0, "xxx");
+            expect($scope.gameStarted).toBe(false);             
+            expect($scope.errorMessage).toEqual("Invalid score entered");
+        });
+    });
+    
+    xdescribe("Start new game", function(){
+        it("should clear down the score card when new game is called", function() {
+            $scope.enterPlayerScore(0, 0, 0, "1");
+            $scope.newGame();
+            expect(mockConfirm).toHaveBeenCalledWith({ text : "Are you want to start a new game?\nAll score data will be lost from the current game."});
+            expect(mockScoreCard.clearScoreCard).toHaveBeenCalled();    
+            expect($scope.gameStarted).toBe(false);
+        });    
     });
 });

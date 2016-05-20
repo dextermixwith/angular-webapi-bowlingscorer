@@ -61,7 +61,7 @@ gulp.task("copy-dev-js", function() {
     .pipe(gulp.dest('./wwwroot/js')) 
 });
 
-var sources = ['wwwroot/lib/angular/angular.js', './js/*.js'];
+var sources = ['wwwroot/lib/angular/angular.js', 'wwwwroot/lib/angular-confirm-modal/angular-confirm.js', 'wwwroot/lib/angular-bootstrap/ui-bootstrap-tpls.js', './js/*.js'];
 
 gulp.task('watch-lint', function () {
     gulp.watch(sources, ['lint']);
