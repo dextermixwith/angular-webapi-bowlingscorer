@@ -70,6 +70,8 @@ gulp.task('watch-lint', function () {
 gulp.task('lint', function () {
     return gulp.src(sources)
      .pipe(ignore.exclude(/angular\.js/))
+     .pipe(ignore.exclude(/angular-confirm\.js/))
+     .pipe(ignore.exclude(/ui-bootstrap-tpls\.js/))
      .pipe(jshint({"predef": ["angular"]}))
      .pipe(jshint.reporter('default'))
      .pipe(jshint.reporter('fail'));;
