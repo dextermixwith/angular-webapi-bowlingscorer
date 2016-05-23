@@ -26,11 +26,15 @@ app.controller('ScoreCardController', ['$scope', '$confirm', 'scoreCard', functi
         $scope.scoreCard.addPlayerRow();  
     };
     
-    $scope.newGame = function() {
+    $scope.confirmNewGame = function() {
         $confirm({ text : "Are you want to start a new game? All score data will be lost from the current game.", title : "New Game", ok: "Yes", cancel : "No"})
             .then(function() {
-                $scope.scoreCard.clearScoreCard();
-                $scope.gameStarted = false;                      
+                $scope.newGame();                   
             });
+    };
+    
+    $scope.newGame = function() {
+        $scope.scoreCard.clearScoreCard();
+        $scope.gameStarted = false;       
     };
 }]);

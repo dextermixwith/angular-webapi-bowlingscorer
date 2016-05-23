@@ -7,8 +7,8 @@ describe("Scorecard Controller", function() {
 	beforeEach(function() {
         module('bowlingScorer', function($provide){
             mockScoreCard = jasmine.createSpyObj('scoreCard', ['addScoreToFrame', 'addPlayerRow', 'clearScoreCard']);    
-            mockConfirm = jasmine.createSpy('$confirm');
-           
+            mockConfirm = jasmine.createSpy('$confirm', ['then']);
+
             $provide.value('scoreCard', mockScoreCard);
             $provide.value('$confirm', mockConfirm);   
         });
@@ -84,11 +84,12 @@ describe("Scorecard Controller", function() {
         });
     });
     
-    xdescribe("Start new game", function(){
+    describe("Start new game", function(){
         it("should clear down the score card when new game is called", function() {
+        
             $scope.enterPlayerScore(0, 0, 0, "1");
             $scope.newGame();
-            expect(mockConfirm).toHaveBeenCalledWith({ text : "Are you want to start a new game?\nAll score data will be lost from the current game."});
+            
             expect(mockScoreCard.clearScoreCard).toHaveBeenCalled();    
             expect($scope.gameStarted).toBe(false);
         });    
