@@ -1,12 +1,10 @@
-'use strict';
-
 app.factory('scoreCalculator', ['scoreParser', function(scoreParser){
    return {
        recalculateScores : function(playerScoreRow) {
             playerScoreRow.totalScore = 0;
 
             for(var frameIndex = 0; frameIndex < playerScoreRow.frames.length; frameIndex++){
-               if (playerScoreRow.frames[frameIndex].tryScores[0] != '-') { 
+               if (playerScoreRow.frames[frameIndex].tryScores[0] !== '-') { 
                     var frameComplete = false;
                     var frameScoreValue = 0;
                     
@@ -25,7 +23,7 @@ app.factory('scoreCalculator', ['scoreParser', function(scoreParser){
                         }
                         
                         if(tryIndex === 1 && frameScoreValue > 10 && !(frameIndex === 9 && tryScore === 'X')) {
-                            throw(new Error("Total try scores entered for frames 1 to 9 cannot come to more than 10"));
+                            throw(new Error('Total try scores entered for frames 1 to 9 cannot come to more than 10'));
                         }                    
                     }
                     

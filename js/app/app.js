@@ -15,7 +15,7 @@ var PlayerScoreRow = function(playerName) {
     }
     framesArray[9].tryScores.push('-');
     
-    this.playerName = playerName || "";
+    this.playerName = playerName || '';
     this.totalScore = 0;
     this.frames = framesArray;  
 };

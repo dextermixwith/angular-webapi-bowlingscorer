@@ -1,17 +1,15 @@
-'use strict';
-
 app.controller('ScoreCardController', ['$scope', '$confirm', 'scoreCard', function($scope, $confirm, scoreCard) {
     
     $scope.scoreCard = scoreCard;
-    $scope.errorMessage = "";
+    $scope.errorMessage = '';
     $scope.gameStarted = false;
     
     $scope.enterPlayerScore = function(playerNumber, frame, tryNumber, score) {
-        if (score !== "") {
+        if (score !== '') {
             try {
                 $scope.scoreCard.addScoreToFrame(playerNumber, frame, tryNumber, score);
                 $scope.gameStarted = true;
-                $scope.errorMessage = "";
+                $scope.errorMessage = '';
             } catch (error) {
                 $scope.errorMessage = error.message;  
             }
@@ -27,7 +25,7 @@ app.controller('ScoreCardController', ['$scope', '$confirm', 'scoreCard', functi
     };
     
     $scope.confirmNewGame = function() {
-        $confirm({ text : "Are you want to start a new game? All score data will be lost from the current game.", title : "New Game", ok: "Yes", cancel : "No"})
+        $confirm({ text : 'Are you want to start a new game? All score data will be lost from the current game.', title : 'New Game', ok: 'Yes', cancel : 'No'})
             .then(function() {
                 $scope.newGame();                   
             });

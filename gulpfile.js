@@ -17,13 +17,15 @@ var webroot = "./wwwroot/";
 var paths = {
   js:  "js/**/*.js",
   minJs: webroot + "js/**/*.min.js",
-  css: webroot + "css/**/*.css",
+  css: "css/**/*.css",
   minCss: webroot + "css/**/*.min.css",
+  concatAppJsDest: webroot + "js/site.js",
   concatJsDest: webroot + "js/site.min.js",
+  concatCssDestNonMin: webroot + "css/site.css",
   concatCssDest: webroot + "css/site.min.css"
 };
 
-gulp.task("default", ["clean", "lint", "runTests", "min", "copy-dev-js", "dnx-run"])
+gulp.task("default", ["clean", "copy-dev-js", "copy-dev-css", "lint", "runTests", "min", "dnx-run"])
 
 gulp.task("test", ["clean", "lint", "watchTests"])
 
@@ -57,11 +59,19 @@ gulp.task("min:css", function () {
 gulp.task("min", ["min:js", "min:css"]);
 
 gulp.task("copy-dev-js", function() {
-   gulp.src('./js/*.js')
-    .pipe(gulp.dest('./wwwroot/js')) 
+   gulp.src(paths.js)
+      .pipe(concat(paths.concatAppJsDest)) 
+      .pipe(gulp.dest(".")) 
 });
 
-var sources = ['wwwroot/lib/angular/angular.js', 'wwwwroot/lib/angular-confirm-modal/angular-confirm.js', 'wwwroot/lib/angular-bootstrap/ui-bootstrap-tpls.js', './js/*.js'];
+
+gulp.task("copy-dev-css", function() {
+   gulp.src(paths.css)
+      .pipe(concat(paths.concatCssDestNonMin)) 
+      .pipe(gulp.dest(".")) 
+});
+
+var sources = ['wwwroot/lib/angular/angular.js', 'wwwwroot/lib/angular-confirm-modal/angular-confirm.js', 'wwwroot/lib/angular-bootstrap/ui-bootstrap-tpls.js', 'wwwroot/js/site.js'];
 
 gulp.task('watch-lint', function () {
     gulp.watch(sources, ['lint']);
@@ -74,7 +84,10 @@ gulp.task('lint', function () {
      .pipe(ignore.exclude(/ui-bootstrap-tpls\.js/))
      .pipe(jshint({"predef": ["angular"]}))
      .pipe(jshint.reporter('default'))
-     .pipe(jshint.reporter('fail'));;
+     .pipe(jshint.reporter('fail'))
+     .on('error', function(){
+       process.exit(1);
+     });
 });
 
 gulp.task('watchTests', ["clean"], function () {
