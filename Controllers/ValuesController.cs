@@ -1,9 +1,10 @@
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BowlingScorer.Controllers
 {
     public class HomeController : Controller
     {
+
         public IActionResult Index()
         {
             return View();
@@ -13,5 +14,5 @@ namespace BowlingScorer.Controllers
         {
             return View();
         }
-    }
+   }
 }
