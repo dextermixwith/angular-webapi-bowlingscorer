@@ -8,7 +8,7 @@ var gulp = require("gulp"),
   uglify = require("gulp-uglify"),
   ignore = require('gulp-ignore'),
   jshint = require('gulp-jshint'),
-  dnx = require("gulp-dnx");
+  shell = require("gulp-shell");
 
 var Server = require('karma').Server;
 
@@ -25,7 +25,7 @@ var paths = {
   concatCssDest: webroot + "css/site.min.css"
 };
 
-gulp.task("default", ["clean", "copy-dev-js", "copy-dev-css", "lint", "runTests", "min", "dnx-run"])
+gulp.task("default", ["clean", "copy-dev-js", "copy-dev-css", "lint", "runTests", "min", "dotnet-run"])
 
 gulp.task("test", ["clean", "lint", "watchTests"])
 
@@ -104,14 +104,5 @@ gulp.task('runTests', function (done) {
   }, done).start();
 });
 
-var dnxOptions = {
-    restore: true,
-    build: true,
-    run: true,
-    cwd: './'
-};
-
-var dnxCommand = 'web';
-
-gulp.task('dnx-run', dnx(dnxCommand, dnxOptions));
+gulp.task('dotnet-run', shell.task("dotnet run"));
 
