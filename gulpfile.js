@@ -12,7 +12,7 @@ var gulp = require("gulp"),
 
 var Server = require('karma').Server;
 
-var webroot = "./wwwroot/";
+var webroot = "./BowlingScorer.MVC/wwwroot/";
 
 var paths = {
   js:  "js/**/*.js",
@@ -46,14 +46,14 @@ gulp.task("min:js", function () {
   })
     .pipe(concat(paths.concatJsDest))
     .pipe(uglify())
-    .pipe(gulp.dest("."));
+    .pipe(gulp.dest("./BowlingScorer.MVC/"));
 });
 
 gulp.task("min:css", function () {
   return gulp.src([paths.css, "!" + paths.minCss])
     .pipe(concat(paths.concatCssDest))
     .pipe(cssmin())
-    .pipe(gulp.dest("."));
+    .pipe(gulp.dest("./BowlingScorer.MVC/"));
 });
 
 gulp.task("min", ["min:js", "min:css"]);
@@ -61,17 +61,17 @@ gulp.task("min", ["min:js", "min:css"]);
 gulp.task("copy-dev-js", function() {
    gulp.src(paths.js)
       .pipe(concat(paths.concatAppJsDest)) 
-      .pipe(gulp.dest(".")) 
+      .pipe(gulp.dest("./BowlingScorer.MVC/")) 
 });
 
 
 gulp.task("copy-dev-css", function() {
    gulp.src(paths.css)
       .pipe(concat(paths.concatCssDestNonMin)) 
-      .pipe(gulp.dest(".")) 
+      .pipe(gulp.dest("./BowlingScorer.MVC/")) 
 });
 
-var sources = ['wwwroot/lib/angular/angular.js', 'wwwwroot/lib/angular-confirm-modal/angular-confirm.js', 'wwwroot/lib/angular-bootstrap/ui-bootstrap-tpls.js', 'wwwroot/js/site.js'];
+var sources = ['./BowlingScorer.MVC/wwwroot/lib/angular/angular.js', './BowlingScorer.MVC/wwwwroot/lib/angular-confirm-modal/angular-confirm.js', './BowlingScorer.MVC/wwwroot/lib/angular-bootstrap/ui-bootstrap-tpls.js', './BowlingScorer.MVC/wwwroot/js/site.js'];
 
 gulp.task('watch-lint', function () {
     gulp.watch(sources, ['lint']);
@@ -104,5 +104,5 @@ gulp.task('runTests', function (done) {
   }, done).start();
 });
 
-gulp.task('dotnet-run', shell.task("dotnet run"));
+gulp.task('dotnet-run', shell.task("dotnet run --project BowlingScorer.MVC/"));
 

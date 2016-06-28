@@ -1,0 +1,6 @@
+{
+    "projects":[
+        "BowlingScorer.MVC",
+        "BowlingScorer.MVC.Tests"
+    ]
+}

@@ -15,12 +15,12 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'wwwroot/lib/angular/angular.js',
-      'wwwroot/lib/angular-mocks/angular-mocks.js',
-      'wwwroot/lib/angular-confirm-modal/angular-confirm.js',
-      'wwwroot/lib/angular-bootstrap/ui-bootstrap-tpls.js',
-      'js/**/*.js',
-      'specs/**/*.js'
+      './BowlingScorer.MVC/wwwroot/lib/angular/angular.js',
+      './BowlingScorer.MVC/wwwroot/lib/angular-mocks/angular-mocks.js',
+      './BowlingScorer.MVC/wwwroot/lib/angular-confirm-modal/angular-confirm.js',
+      './BowlingScorer.MVC/wwwroot/lib/angular-bootstrap/ui-bootstrap-tpls.js',
+      './BowlingScorer.MVC/js/**/*.js',
+      './BowlingScorer.MVC/specs/**/*.js'
     ],
 
 
