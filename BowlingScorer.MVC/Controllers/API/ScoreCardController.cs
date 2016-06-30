@@ -1,21 +1,26 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using BowlingScorer.MVC.Services.Factories;
 using Microsoft.AspNetCore.Mvc;
+using BowlingScorer.MVC.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace BowlingScorer.Controllers.API
+namespace BowlingScorer.MVC.Controllers.API
 {
     [Route("api/[controller]")]
     public class ScoreCardController : Controller
     {
+        private IScoreCardFactory _scoreCardFactory;
+
+        public ScoreCardController(IScoreCardFactory scoreCardFactory)
+        {
+            _scoreCardFactory= scoreCardFactory;
+        }
+
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ScoreCard Get()
         {
-            return new string[] { "value1", "value2" };
+            return _scoreCardFactory.Create();
         }
 
         // GET api/values/5

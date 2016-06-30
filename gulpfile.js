@@ -25,7 +25,7 @@ var paths = {
   concatCssDest: webroot + "css/site.min.css"
 };
 
-gulp.task("default", ["clean", "copy-dev-js", "copy-dev-css", "lint", "runTests", "min", "dotnet-run"])
+gulp.task("default", ["clean", "copy-dev-js", "copy-dev-css", "lint", "runTests", "min", "dotnet-build-mvc", "dotnet-build-mvc-test", "dotnet-test-mvc", "dotnet-run-mvc"])
 
 gulp.task("test", ["clean", "lint", "watchTests"])
 
@@ -104,5 +104,8 @@ gulp.task('runTests', function (done) {
   }, done).start();
 });
 
-gulp.task('dotnet-run', shell.task("dotnet run --project BowlingScorer.MVC/"));
+gulp.task('dotnet-build-mvc', shell.task("dotnet build BowlingScorer.MVC/"));
+gulp.task('dotnet-build-mvc-test', shell.task("dotnet build BowlingScorer.MVC.Tests/"));
+gulp.task('dotnet-test-mvc', shell.task("dotnet test BowlingScorer.MVC.Tests/"));
+gulp.task('dotnet-run-mvc', shell.task("dotnet run --project BowlingScorer.MVC/"));
 

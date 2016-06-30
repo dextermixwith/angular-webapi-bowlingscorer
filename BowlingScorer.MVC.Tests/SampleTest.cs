@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Xunit;
-using BowlingScorer.MVC;
-using BowlingScorer.Controllers.API;
 
 namespace BowlingScorer.MVC.Tests
 {
@@ -21,12 +16,6 @@ namespace BowlingScorer.MVC.Tests
         public void FailingTest()
         {
             Assert.Equal(5, Add(2, 3));
-        }
-
-        [Fact]
-        public void HomeControllerTest()
-        {
-            Assert.True(new ScoreCardController().Get().Contains("value1"));
         }
         
         int Add(int x, int y)
